@@ -1,0 +1,21 @@
+
+{% extends 'tma/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <div style="width:75%; margin: auto; ">
+        <form action="" method="post">
+            {% csrf_token %}
+
+            {{form|crispy}}
+
+            <br>
+            <button type="submit" class="btn btn-success">Registrarse</button>
+        </form>
+    </div>
+
+{% endblock %}

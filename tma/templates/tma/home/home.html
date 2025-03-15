@@ -1,0 +1,65 @@
+{% extends "tma/base.html" %}
+
+{% block content %}
+
+<!--Aparece todo si el usuario está registrado, sino solo aparecerá la página base.html con el formulario de registro-->
+
+{% if request.user.is_authenticated %}
+
+
+<div id="events">
+
+    <!--Añadir eventos, boton de añadir-->
+
+    <h2>Eventos</h2>
+    <div class="">
+
+        {% for event in events %}
+
+            <div class="">
+                <span>{{ event.date }}</span>  
+                <h5>{{ event.name }}</h5>
+                <a href="{% url  'remove_event' event.id %}" class="btn btn-outline-dark me-2">-</a>
+            </div>
+        
+        {% empty %}
+
+            <div class="">No tienes eventos registrados.</div>
+        
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'events' %}" class="btn btn-outline-dark me-2">+</a>
+
+
+</div>
+
+<div id="goals">
+
+    <!--Añadir goals y botones-->
+
+</div>
+
+<div id="organization">
+
+    <!--Como en el excel, la estructuración de mesociclos...-->
+
+</div>
+
+<div id="today">
+
+    <!--Añadir entrenamientos hoy-->
+    
+</div>
+
+<div id="tomorrow">
+
+    <!--Añadir entrenamientos mañana-->
+
+</div>
+
+
+
+{% endif %}
+
+{% endblock %}
