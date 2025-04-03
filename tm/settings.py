@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tma.apps.TmaConfig',
+    'trainings.apps.TrainingsConfig',
     'authentication.apps.AuthenticationConfig',
     'crispy_forms',
     'crispy_bootstrap5',

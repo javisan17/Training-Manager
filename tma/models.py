@@ -16,36 +16,38 @@ class Events(models.Model):
     ]
 
     #Crear los campos de la db
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     name=models.CharField(max_length=50)
     date=models.DateField(null=False)
     type=models.CharField(max_length=3, choices=type_choices, null=False)
-    description=models.CharField(max_length=255)
+    description=models.CharField(max_length=255, default='')
     class Meta():
         verbose_name='event'
         verbose_name_plural='events'
 
-
-
-"""
-CORREGIR
-"""
 class Goals(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
     name=models.CharField(max_length=50, null=False)
     date=models.DateField(null=False)
-    type_choices= [
-        ('RUN', 'Running'),
-        ('BIK', 'Ciclismo'),
-        ('SWM', 'Natación'),
-        ('TRI', 'Triatlon'),
-        ('GYM', 'Gimnasio')
-    ]
-    type=models.CharField(max_length=3, choices=type_choices, null=False)
-
     class Meta():
         verbose_name='goal'
         verbose_name_plural='goals'
 
-#MIRAR COMO CREAR LAS TABLAS DE LA ORGANIZACION DE MESOCICLOS
-class Mesociclos(models.Model):
-    pass
+class Zones(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    name=models.CharField(max_length=30)
+    type_choices= [
+        ('Z1', 'Zona 1 Recovery'),
+        ('Z2', 'Zona 2 Easy Run'),
+        ('Z3', 'Zona 3 Tempo'),
+        ('Z4', 'Zona 4 Umbral'),
+        ('Z5a', 'Zona 5a VO2max'),
+        ('Z5b', 'Zona 5b VO2max'),
+        ('Z5c', 'Zona 5c Sprint')
+    ]
+    type=models.CharField(max_length=3, choices=type_choices, null=False)
+    minValue=models.FloatField()
+    maxValue=models.FloatField()
+    class Meta():
+        verbose_name='zone'
+        verbose_name_plural='zones'

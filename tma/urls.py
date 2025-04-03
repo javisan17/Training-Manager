@@ -5,11 +5,11 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('events/', views.add_events, name='events'),
-    path('remove-event/<int:event_id>/', views.rem_events, name='remove_event'),
-    
+    path('delete-event/<int:event_id>/', views.delete_event, name='delete_event'),
+    path('goals/', views.add_goals, name='goals'),
+    path('delete-goal/<int:goal_id>/', views.delete_goal, name='delete_goal'),
 
-    path('trainings/', views.trainings, name='trainings'),
+
+
     path('atp/', views.atp, name='atp'),
-
-
 ]

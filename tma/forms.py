@@ -1,5 +1,5 @@
 from django import forms
-from .models import Events
+from .models import Events, Goals
 
 class EventForm(forms.ModelForm):
 
@@ -18,3 +18,11 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Events
         fields = ['name', 'date', 'type', 'description']
+
+class GoalsForm(forms.ModelForm):
+    name=forms.CharField(label='Nombre', max_length=30, required=True)
+    date=forms.DateField(label='Fecha', required=True, widget=forms.DateInput(attrs={'type': 'date'}))
+
+    class Meta:
+        model = Goals
+        fields = ['name', 'date']

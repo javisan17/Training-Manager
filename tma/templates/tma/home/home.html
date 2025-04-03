@@ -2,48 +2,123 @@
 
 {% block content %}
 
-<!--Aparece todo si el usuario está registrado, sino solo aparecerá la página base.html con el formulario de registro-->
-
 {% if request.user.is_authenticated %}
 
+<div class="row">
+    <div id="events" class="card col-sm-6 pe-0">
 
-<div id="events">
+        <!--Añadir eventos, boton de añadir-->
 
-    <!--Añadir eventos, boton de añadir-->
+        <h2 class="card-header text-center">Eventos</h2>
+        <div class="card-body p-1 m-2">
 
-    <h2>Eventos</h2>
-    <div class="">
+            {% for event in events %}
 
-        {% for event in events %}
+                <div class="card p-3 m-2">
+                    <div class="d-flex justify-content-between align-items-center"">
+                        <span class="card-text">{{ event.date }}</span>  
+                        <h5 class="card-title">{{ event.name }}</h5>
 
-            <div class="">
-                <span>{{ event.date }}</span>  
-                <h5>{{ event.name }}</h5>
-                <a href="{% url  'remove_event' event.id %}" class="btn btn-outline-dark me-2">-</a>
+                        <form action="{% url 'delete_event' event.id %}" method="post" onsubmit="return confirmDelete(event)" class="">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger align-items-right">-</button>
+                        </form>
+                    </div>
+                </div>
+            
+            {% empty %}
+
+                <p class="card-subtitle text-center p-2 m-2">No tienes eventos registrados</p>
+            
+            {% endfor %}
+        </div>
+
+            <!-- Botón para abrir el modal -->
+        <button type="button" class="btn btn-outline-dark m-2" data-bs-toggle="modal" data-bs-target="#eventModal">
+            +
+        </button>
+
+        <!-- Modal para agregar eventos -->
+        <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="eventModalLabel">Nuevo Evento</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'events' %}">
+                            {% csrf_token %}
+                            {{ form_events.as_p }}
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        
-        {% empty %}
+        </div>
 
-            <div class="">No tienes eventos registrados.</div>
-        
-        {% endfor %}
     </div>
 
-    <a href="{% url 'events' %}" class="btn btn-outline-dark me-2">+</a>
+    <div class="col-sm-1"> <!-- ESPACIO EN BLANCO ENTRE MEDIAS --> </div>
 
+    <div id="goals" class="card col-sm-5">
 
-</div>
+        <!--Añadir goals y botones-->
+        <h2 class="card-header text-center">Goals</h2>
+        <div class="card-body p-1 m-2">
 
-<div id="goals">
+            {% for goal in goals %}
 
-    <!--Añadir goals y botones-->
+                <div class="card p-3 m-2">
+                    <div class="d-flex justify-content-between align-items-center"">
+                        <span class="card-text">{{ goal.date }}</span>  
+                        <h5 class="card-title">{{ goal.name }}</h5>
+
+                        <form action="{% url 'delete_goal' goal.id %}" method="post" onsubmit="return confirmDelete(event)" class="">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger align-items-right">-</button>
+                        </form>
+                    </div>
+                </div>
+            
+            {% endfor %}
+        
+        </div>
+
+        <!-- Botón para abrir el modal -->
+        <button type="button" class="btn btn-outline-dark m-2" data-bs-toggle="modal" data-bs-target="#goalModal">
+            +
+        </button>
+
+        <!-- Modal para agregar goals -->
+        <div class="modal fade" id="goalModal" tabindex="-1" aria-labelledby="goalModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="goalModalLabel">Nuevo Goal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'goals' %}">
+                            {% csrf_token %}
+                            {{ form_goals.as_p }}
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 </div>
 
 <div id="organization">
 
     <!--Como en el excel, la estructuración de mesociclos...-->
-
+    
 </div>
 
 <div id="today">
